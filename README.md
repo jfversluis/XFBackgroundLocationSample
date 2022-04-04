@@ -4,3 +4,5 @@ Android: [![YouTube Video Views](https://img.shields.io/youtube/views/Q_renpfnbk
 
 # Xamarin.Forms Background Location Sample
 Sample code to demonstrate how to track a devices' background location with Xamarin.Forms for iOS and Android
+
+Adopted Android code from here: https://github.com/shernandezp/XamarinForms.LocationService
