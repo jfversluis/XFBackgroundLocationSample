@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="nl.versluis.xfbackgroundlocationsample">
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="33" />
 	<application android:label="XFBackgroundLocationSample.Android" android:theme="@style/MainTheme">
 		<receiver android:name="com.locationservice.app.BootBroadcastReceiver" android:enabled="true" android:exported="true" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
 			<intent-filter>
@@ -9,7 +9,7 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</receiver>
-    </application>
+	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -17,4 +17,7 @@
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+	<uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
+	<uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 </manifest>

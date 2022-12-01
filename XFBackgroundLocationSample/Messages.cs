@@ -18,5 +18,10 @@ namespace XFBackgroundLocationSample
     public class LocationErrorMessage
     {
     }
+
+    public class LocationArrivedMessage
+    {
+
+    }
 }
 

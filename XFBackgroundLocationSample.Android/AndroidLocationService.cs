@@ -26,26 +26,28 @@ namespace XFBackgroundLocationSample.Droid
 			Notification notification = new NotificationHelper().GetServiceStartedNotification();
 			StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, notification);
 
-			Task.Run(() => {
-				try
-				{
-					var locShared = new GetLocationService();
-					locShared.Run(_cts.Token).Wait();
-				}
-				catch (Android.OS.OperationCanceledException)
-				{
-				}
-				finally
-				{
-					if (_cts.IsCancellationRequested)
-					{
-						var message = new StopServiceMessage();
-						Device.BeginInvokeOnMainThread(
-							() => MessagingCenter.Send(message, "ServiceStopped")
-						);
-					}
-				}
-			}, _cts.Token);
+			Task.Run(() =>
+            {
+                try
+                {
+                    var locShared = new GetLocationService();
+                    locShared.Run(_cts.Token).Wait();
+                }
+                catch (Android.OS.OperationCanceledException ex)
+                {
+                    Console.WriteLine("Error occurred: " + ex.Message);
+                }
+                finally
+                {
+                    if (_cts.IsCancellationRequested)
+                    {
+                        var message = new StopServiceMessage();
+                        Device.BeginInvokeOnMainThread(
+                            () => MessagingCenter.Send(message, "ServiceStopped")
+                        );
+                    }
+                }
+            }, _cts.Token);
 
 			return StartCommandResult.Sticky;
 		}

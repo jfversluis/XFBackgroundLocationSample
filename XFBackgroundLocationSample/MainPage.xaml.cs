@@ -20,21 +20,60 @@ namespace XFBackgroundLocationSample
             {
                 MessagingCenter.Subscribe<LocationMessage>(this, "Location", message => {
                     Device.BeginInvokeOnMainThread(() => {
-                        locationLabel.Text += $"{Environment.NewLine}{message.Latitude}, {message.Longitude}, {DateTime.Now.ToLongTimeString()}";
+                        try
+                        {
+                            locationLabel.Text += $"{Environment.NewLine}{message.Latitude}, {message.Longitude}, {DateTime.Now.ToLongTimeString()}";
 
-                        Console.WriteLine($"{message.Latitude}, {message.Longitude}, {DateTime.Now.ToLongTimeString()}");
+                            Console.WriteLine($"{message.Latitude}, {message.Longitude}, {DateTime.Now.ToLongTimeString()}");
+
+
+                            if(message.Latitude.Equals(1) && message.Longitude.Equals(1))
+                            {
+
+                            }
+                        }
+                        catch (Exception ex) {
+                            Console.Write("Failed in MessagingCenter.Subscribe<LocationMessage>: " + ex.Message);
+                        }
                     });
                 });
 
                 MessagingCenter.Subscribe<StopServiceMessage>(this, "ServiceStopped", message => {
                     Device.BeginInvokeOnMainThread(() => {
-                        locationLabel.Text = "Location Service has been stopped!";
+                        try
+                        {
+                            locationLabel.Text = "Location Service has been stopped!";
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.Write("Failed in MessagingCenter.Subscribe<StopServiceMessage>: " + ex.Message);
+                        }
                     });
                 });
 
                 MessagingCenter.Subscribe<LocationErrorMessage>(this, "LocationError", message => {
                     Device.BeginInvokeOnMainThread(() => {
-                        locationLabel.Text = "There was an error updating location!";
+                        try
+                        {
+                            locationLabel.Text = "There was an error updating location!";
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.Write("Failed in MessagingCenter.Subscribe<LocationErrorMessage>: " + ex.Message);
+                        }
+                    });
+                });
+
+                MessagingCenter.Subscribe<LocationArrivedMessage>(this, "LocationArrived", message => {
+                    Device.BeginInvokeOnMainThread(() => {
+                        try
+                        {
+                            locationLabel.Text = "You've arrived your destination!";
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.Write("Failed in MessagingCenter.Subscribe<LocationArrivedMessage>: " + ex.Message);
+                        }
                     });
                 });
 
@@ -49,14 +88,19 @@ namespace XFBackgroundLocationSample
         {
             var permission = await Xamarin.Essentials.Permissions.RequestAsync<Xamarin.Essentials.Permissions.LocationAlways>();
 
+            Console.WriteLine("Button " + sender + " clicked!");
+            Console.Write("Permissions:" + permission);
+
             if (permission == Xamarin.Essentials.PermissionStatus.Denied)
             {
                 // TODO Let the user know they need to accept
+                Console.WriteLine("Permission denied.");
                 return;
             }
 
             if (Device.RuntimePlatform == Device.iOS)
             {
+                Console.WriteLine("Running on IOS.");
                 if (CrossGeolocator.Current.IsListening)
                 {
                     await CrossGeolocator.Current.StopListeningAsync();
@@ -80,12 +124,15 @@ namespace XFBackgroundLocationSample
             }
             else if (Device.RuntimePlatform == Device.Android)
             {
+                Console.WriteLine("Running on Android.");
                 if (Preferences.Get("LocationServiceRunning", false) == false)
                 {
+                    Console.WriteLine("Start service on Android.");
                     StartService();
                 }
                 else
                 {
+                    Console.WriteLine("Stop service on Android.");
                     StopService();
                 }
             }
@@ -94,9 +141,24 @@ namespace XFBackgroundLocationSample
         private void StartService()
         {
             var startServiceMessage = new StartServiceMessage();
-            MessagingCenter.Send(startServiceMessage, "ServiceStarted");
-            Preferences.Set("LocationServiceRunning", true);
-            locationLabel.Text = "Location Service has been started!";
+            Console.WriteLine("Created StartServiceMessage.");
+
+            try
+            {
+                Console.WriteLine("Try sending a message to MessagingCenter.");
+                MessagingCenter.Send(startServiceMessage, "ServiceStarted");
+                Console.WriteLine("Sent a message to MessagingCenter: " + startServiceMessage);
+
+                Console.WriteLine("Try set preferences of LocationServiceRunning");
+                Preferences.Set("LocationServiceRunning", true);
+                Console.WriteLine("Set preferences of LocationServiceRunning");
+
+                locationLabel.Text = "Location Service has been started!";
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         private void StopService()

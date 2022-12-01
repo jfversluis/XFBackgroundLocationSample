@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFBackgroundLocationSample.Android", "XFBackgroundLocationSample.Android.csproj", "{DA0D03CD-75D6-41B3-B283-36BA8319BAFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA0D03CD-75D6-41B3-B283-36BA8319BAFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA0D03CD-75D6-41B3-B283-36BA8319BAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA0D03CD-75D6-41B3-B283-36BA8319BAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA0D03CD-75D6-41B3-B283-36BA8319BAFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DDDBC914-5812-4FD5-B8A9-6D4A7F2BE435}
+	EndGlobalSection
+EndGlobal

@@ -39,7 +39,7 @@ namespace XFBackgroundLocationSample
 							});
 						}
 					}
-					catch (Exception ex)
+					catch (Exception)
 					{
 						Device.BeginInvokeOnMainThread(() =>
 						{
