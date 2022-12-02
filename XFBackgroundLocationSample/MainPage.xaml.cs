@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Android.App;
 using Plugin.Geolocator;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -12,9 +13,21 @@ namespace XFBackgroundLocationSample
 {
     public partial class MainPage : ContentPage
     {
+        INotificationManager notificationManager;
+        Location goalLocation = new Location(latitude: 32.02069, longitude: 34.763419999999996);
+        bool arrivedDestination = false;
+
         public MainPage()
         {
             InitializeComponent();
+
+            notificationManager = DependencyService.Get<INotificationManager>();
+            notificationManager.NotificationReceived += (sender, eventArgs) =>
+            {
+                var evtData = (NotificationEventArgs)eventArgs;
+                ShowNotification(evtData.Title, evtData.Message);
+            };
+
 
             if (Device.RuntimePlatform == Device.Android)
             {
@@ -22,14 +35,15 @@ namespace XFBackgroundLocationSample
                     Device.BeginInvokeOnMainThread(() => {
                         try
                         {
-                            locationLabel.Text += $"{Environment.NewLine}{message.Latitude}, {message.Longitude}, {DateTime.Now.ToLongTimeString()}";
+                            locationLabel.Text += $"{Environment.NewLine}{message.Latitude}, {message.Longitude}, {DateTime.Now.ToLongTimeString()}!!! Lin";
+                            Console.WriteLine($"{message.Latitude}, {message.Longitude}, {DateTime.Now.ToLongTimeString()}!!!");
 
-                            Console.WriteLine($"{message.Latitude}, {message.Longitude}, {DateTime.Now.ToLongTimeString()}");
-
-
-                            if(message.Latitude.Equals(1) && message.Longitude.Equals(1))
+                            if (!arrivedDestination && message.Latitude == goalLocation.Latitude && message.Longitude == goalLocation.Longitude)
                             {
-
+                                locationLabel.Text += "You've arrived your desitnation!\n";
+                                notificationManager.SendNotification("Destination arrived!", "You're arrived your destionation");
+                                Console.WriteLine("You've arrived your destination!");
+                                arrivedDestination = true;
                             }
                         }
                         catch (Exception ex) {
@@ -145,17 +159,13 @@ namespace XFBackgroundLocationSample
 
             try
             {
-                Console.WriteLine("Try sending a message to MessagingCenter.");
                 MessagingCenter.Send(startServiceMessage, "ServiceStarted");
-                Console.WriteLine("Sent a message to MessagingCenter: " + startServiceMessage);
-
-                Console.WriteLine("Try set preferences of LocationServiceRunning");
                 Preferences.Set("LocationServiceRunning", true);
-                Console.WriteLine("Set preferences of LocationServiceRunning");
 
-                locationLabel.Text = "Location Service has been started!";
+                locationLabel.Text = "Location Service has been started!\n";
+                locationLabel.Text += $"Goal destination: {goalLocation.Latitude},{goalLocation.Longitude}";
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -171,8 +181,25 @@ namespace XFBackgroundLocationSample
         private void Current_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
         {
             locationLabel.Text += $"{e.Position.Latitude}, {e.Position.Longitude}, {e.Position.Timestamp.TimeOfDay}{Environment.NewLine}";
+            Console.WriteLine($"{e.Position.Latitude}, {e.Position.Longitude}, {e.Position.Timestamp.TimeOfDay}!!!!!!");
 
-            Console.WriteLine($"{e.Position.Latitude}, {e.Position.Longitude}, {e.Position.Timestamp.TimeOfDay}");
+            if(e.Position.Latitude.Equals(goalLocation.Latitude) && e.Position.Longitude.Equals(goalLocation.Longitude))
+            {
+                notificationManager.SendNotification("Destination arrived!", "You're arrived your destionation");
+                Console.WriteLine("You've arrived your destination!");
+            }
+        }
+
+        void ShowNotification(string title, string message)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                var msg = new Label()
+                {
+                    Text = $"Notification Received:\nTitle: {title}\nMessage: {message}"
+                };
+                stackLayout.Children.Add(msg);
+            });
         }
     }
 }

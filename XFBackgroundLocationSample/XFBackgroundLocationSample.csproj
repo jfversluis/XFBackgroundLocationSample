@@ -17,5 +17,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Xam.Plugin.Geolocator" />
+    <None Remove="Mono.Android" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\Library\Frameworks\Xamarin.Android.framework\Versions\13.1.0.1\lib\xamarin.android\xbuild-frameworks\MonoAndroid\v13.0\Mono.Android.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

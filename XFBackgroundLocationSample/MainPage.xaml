@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XFBackgroundLocationSample.MainPage">
 
-    <StackLayout>
+    <StackLayout x:Name="stackLayout">
         <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
             <Label Text="Background Location Sample" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
         </Frame>

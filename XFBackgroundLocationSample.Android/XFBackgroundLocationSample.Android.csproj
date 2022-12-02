@@ -71,6 +71,8 @@
     <Compile Include="NotificationHelper.cs" />
     <Compile Include="AndroidLocationService.cs" />
     <Compile Include="BootBroadcastReceiver.cs" />
+    <Compile Include="AndroidNotificationManager.cs" />
+    <Compile Include="AlarmHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
