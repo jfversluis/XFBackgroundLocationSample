@@ -14,10 +14,12 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
     <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
+    <PackageReference Include="Plugin.FirebasePushNotification" Version="3.4.35" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Xam.Plugin.Geolocator" />
     <None Remove="Mono.Android" />
+    <None Remove="Plugin.FirebasePushNotification" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android">

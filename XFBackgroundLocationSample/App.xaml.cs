@@ -1,4 +1,5 @@
 ﻿using System;
+using Plugin.FirebasePushNotification;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,6 +12,13 @@ namespace XFBackgroundLocationSample
             InitializeComponent();
 
             MainPage = new MainPage();
+
+            CrossFirebasePushNotification.Current.OnTokenRefresh += Current_OnTokenRefresh;
+        }
+
+        private void Current_OnTokenRefresh(object source, FirebasePushNotificationTokenEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine($"Token: {e.Token}");
         }
 
         protected override void OnStart()

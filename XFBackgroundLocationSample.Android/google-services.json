@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1070505302572",
+    "project_id": "locationtrackernotification",
+    "storage_bucket": "locationtrackernotification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070505302572:android:50cf9bae46c75ea3684f89",
+        "android_client_info": {
+          "package_name": "il.lin.pushnotificationssample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070505302572-076sn7vn2os75gj4b86tmdmnbvloaf55.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1Dxd83JbtYy8jX_-9Pdo7opyswxXsHAA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070505302572-076sn7vn2os75gj4b86tmdmnbvloaf55.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

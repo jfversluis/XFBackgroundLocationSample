@@ -7,6 +7,7 @@ using Android.OS;
 using Android.Content;
 using Xamarin.Forms;
 using LocalNotifications.Droid;
+using Plugin.FirebasePushNotification;
 
 namespace XFBackgroundLocationSample.Droid
 {
@@ -34,7 +35,8 @@ namespace XFBackgroundLocationSample.Droid
             }
 
             LoadApplication(new App());
-            CreateNotificationFromIntent(Intent);
+            FirebasePushNotificationManager.ProcessIntent(this, Intent);
+            CreateNotificationFromIntent(Intent); //TODO: examine if relevant
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
